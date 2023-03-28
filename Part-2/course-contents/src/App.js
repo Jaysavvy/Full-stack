@@ -1,23 +1,45 @@
-import "./App.css";
 import React from "react";
-
-import Note from "./components/Note";
 
 // const Note = ({ note }) => {
 //   return <li>{note.content}</li>;
 // };
 
-function App({ notes }) {
+const App = () => {
+  const course = {
+    id: 1,
+    name: "Half Stack application development",
+    parts: [
+      {
+        name: "Fundamentals of React",
+        exercises: 10,
+        id: 1,
+      },
+      {
+        name: "Using props to pass data",
+        exercises: 7,
+        id: 2,
+      },
+      {
+        name: "State of a component",
+        exercises: 14,
+        id: 3,
+      },
+    ],
+  };
+
+  console.log(course);
+
   return (
-    <div>
-      <h1>Notes</h1>
-      <ul>
-        {notes.map((note) => (
-          <Note key={note.id} note={note} />
-        ))}
-      </ul>
-    </div>
-  );
-}
+    <>
+      {course.map((courses) => {
+                return <div key={courses.id}>
+                    <h1>{courses.name}</h1>
+                    <img src={courses.image} alt="recipe image" />
+                    {courses.parts.map((type, index) => {
+                        return <span key={index}>{exercises}</span>
+                    })}
+      
+    </>
+  )}
 
 export default App;
