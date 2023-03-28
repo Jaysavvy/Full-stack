@@ -29,17 +29,7 @@ const App = () => {
 
   console.log(course);
 
-  return (
-    <>
-      {course.map((courses) => {
-                return <div key={courses.id}>
-                    <h1>{courses.name}</h1>
-                    <img src={courses.image} alt="recipe image" />
-                    {courses.parts.map((type, index) => {
-                        return <span key={index}>{exercises}</span>
-                    })}
-      
-    </>
-  )}
+  return <>{course.name}</>;
+};
 
 export default App;
