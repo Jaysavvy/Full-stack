@@ -4,6 +4,26 @@ import React from "react";
 //   return <li>{note.content}</li>;
 // };
 
+const Course = (props) => {
+  console.log(props);
+
+  // const total = props.course.parts.exercises.reduce(
+  //   (sum, part) => sum + part.exercises,
+  //   0
+  // );
+
+  return (
+    <div>
+      {props.course.parts.map((part) => (
+        <div key={part.id}>
+          {part.name} {part.exercises}
+        </div>
+      ))}
+      <h3>Total: </h3>
+    </div>
+  );
+};
+
 const App = () => {
   const course = {
     id: 1,
@@ -27,9 +47,11 @@ const App = () => {
     ],
   };
 
-  console.log(course);
-
-  return <>{course.name}</>;
+  return (
+    <>
+      <Course course={course} />
+    </>
+  );
 };
 
 export default App;
