@@ -5,19 +5,28 @@ import "./App.css";
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arthur Hellas" }]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
-  // console.log(persons);
+  console.log(newNumber);
 
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
       name: newName,
+      phone: newNumber,
       id: persons.length + 1,
     };
-
     console.log(personObject);
+
     setPersons(persons.concat(personObject));
     setNewName("");
+    setNewNumber("");
+
+    const existing_names = persons.map((person) => person.name);
+
+    if (existing_names.includes(newName)) {
+      alert(`${newName} is already added to the phone book.`);
+    }
   };
 
   const handleNameChange = (event) => {
@@ -25,12 +34,25 @@ const App = () => {
     setNewName(event.target.value);
   };
 
+  const handlePhoneChange = (event) => {
+    // console.log(event.target.value);
+    setNewNumber(event.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
+          Filter Shown with{" "}
+          <input value={newName} onChange={handleNameChange} />
+        </div>
+      </form>
+      <h2>Add a new</h2>
+      <form onSubmit={addPerson}>
+        <div>
           name: <input value={newName} onChange={handleNameChange} />
+          phone: <input value={newNumber} onChange={handlePhoneChange} />
         </div>
 
         <div>
@@ -43,7 +65,11 @@ const App = () => {
         ))}
       </ul>
       <h2>Numbers</h2>
-      ...
+      <ul>
+        {persons.map((person) => (
+          <p>{person.phone ? `${person.name} ${person.phone}` : ""}</p>
+        ))}
+      </ul>
     </div>
   );
 };
