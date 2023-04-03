@@ -31,8 +31,9 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
+      // receives content from the components newName state
       name: newName,
-      phone: newNumber,
+      number: newNumber,
       id: persons.length + 1,
     };
     console.log(personObject);
@@ -96,7 +97,7 @@ const App = () => {
       <ul>
         {personsToShow.map((person) => (
           <li>
-            `{person.name} {person.phone}`
+            `{person.name} {person.number}`
           </li>
         ))}
       </ul>
