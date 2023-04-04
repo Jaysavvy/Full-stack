@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Notes from "./compoents/Notes";
 import noteService from "./notesservices";
+import "./index.css";
 
 function App(props) {
   const [notes, setNotes] = useState([]);
