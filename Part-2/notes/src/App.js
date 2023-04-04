@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Notes from "./compoents/Notes";
+import noteService from "./notesservices";
 
 function App(props) {
   const [notes, setNotes] = useState([]);
@@ -9,9 +10,7 @@ function App(props) {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/notes").then((response) => {
-      console.log("promise fulfilled");
+    noteService.getAll().then((response) => {
       setNotes(response.data);
     });
   }, []);
@@ -25,7 +24,7 @@ function App(props) {
       important: Math.random() < 0.5,
     };
 
-    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+    noteService.create(noteObject).then((response) => {
       setNotes(notes.concat(response.data));
       setNewNote("");
     });
@@ -45,8 +44,8 @@ function App(props) {
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    axios.put(url, changedNote).then((response) => {
-      setNotes(notes.map((n) => (n.id !== id ? n : response.data)));
+    noteService.update(id, changedNote).then((response) => {
+      setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
     });
   };
 

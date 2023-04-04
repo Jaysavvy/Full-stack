@@ -6,6 +6,7 @@ import axios from "axios";
 import { Filter } from "./components/Filter";
 import { Persons } from "./components/Persons";
 import { PersonsForm } from "./components/PersonsForm";
+import Personsser from "./services/Personsser";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -21,8 +22,7 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
+    Personsser.getAll().then((response) => {
       setPersons(response.data);
     });
   }, []);
@@ -36,16 +36,24 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1,
     };
-    console.log(personObject);
 
-    setPersons(persons.concat(personObject));
-    setNewName("");
-    setNewNumber("");
+    Personsser.create(personObject).then((response) => {
+      setPersons(persons.concat(response.data));
+      setNewName("");
+    });
 
     const existing_names = persons.map((person) => person.name);
 
     if (existing_names.includes(newName)) {
       alert(`${newName} is already added to the phone book.`);
+    }
+  };
+
+  const deleteEntry = (person) => {
+    const msg = `Delete ${person.name}?`;
+    const confirm = window.confirm(msg);
+    if (confirm) {
+      Personsser.deletePerson(person.id).then((person) => setPersons(persons));
     }
   };
 
@@ -98,6 +106,7 @@ const App = () => {
         {personsToShow.map((person) => (
           <li>
             `{person.name} {person.number}`
+            <button onClick={deleteEntry}>delete</button>
           </li>
         ))}
       </ul>

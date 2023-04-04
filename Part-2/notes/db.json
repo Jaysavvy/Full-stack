@@ -17,7 +17,7 @@
     },
     {
       "content": "a new note...",
-      "important": false,
+      "important": true,
       "id": 4
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "content": "Walk the dog",
-      "important": true,
+      "important": false,
       "id": 6
     }
   ]
