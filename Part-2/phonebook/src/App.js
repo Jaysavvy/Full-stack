@@ -45,9 +45,22 @@ const App = () => {
     const existing_names = persons.map((person) => person.name);
 
     if (existing_names.includes(newName)) {
-      alert(`${newName} is already added to the phone book.`);
+      const msg = `${newName} is already added to the phone book. Replace the old number with the new one?`;
+      const confirm = window.confirm(msg);
+
+      if (confirm) {
+        // setPersons(persons.concat(response.data));
+        // setNewNumber("");
+      }
     }
   };
+
+  // axios
+  //   .put('http://localhost:3001/notes', noteObject)
+  //   .then(response => {
+  //     setPersons(persons.concat(response.data))
+  //     setNewNumber("");
+  //   })
 
   const deleteEntry = (person) => {
     const msg = `Delete ${person.name}?`;
