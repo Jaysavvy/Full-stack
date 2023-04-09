@@ -106,6 +106,6 @@ function App(props) {
       <Footer />
     </div>
   );
-}
+
 
 export default App;
