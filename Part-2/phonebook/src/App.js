@@ -7,12 +7,14 @@ import { Filter } from "./components/Filter";
 import { Persons } from "./components/Persons";
 import { PersonsForm } from "./components/PersonsForm";
 import Personsser from "./services/Personsser";
+import { Notification } from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [errorMessage, setErrorMessage] = useState("some error happened...");
 
   // const promise = axios.get("http://localhost:3001/persons");
 
@@ -92,6 +94,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <form onSubmit={addPerson}>
         <div>
           Filter Shown with{" "}
