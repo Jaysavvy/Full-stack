@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/notes";
+const baseUrl = "http://localhost:3003/api/notes";
 
 const getAll = () => {
-  return axios.get(baseUrl);
+  const request = axios.get(baseUrl);
+  return request.then((response) => response);
 };
 
 const create = (newObject) => {
