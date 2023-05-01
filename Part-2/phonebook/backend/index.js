@@ -1,9 +1,7 @@
 const http = require("http");
 
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { "Content-Type": "text/plain" });
-  response.end("Hello World");
-});
+const express = require("express");
+const app = express();
 
 let persons = [
   {
@@ -52,6 +50,45 @@ let persons = [
     id: 9,
   },
 ];
+
+const count = persons.filter((item) => item.name).length;
+
+app.get("/", (request, response) => {
+  response.send("<h1>Hello You Bad Ass!</h1>");
+});
+
+app.get("/api/persons", (request, response) => {
+  response.json(persons);
+});
+
+app.get("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  console.log(id);
+  const person = persons.find((person) => person.id == id);
+
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404);
+    response.send("<h2>You've enter the wrong id</h2>");
+  }
+});
+
+app.get("/info", (request, response) => {
+  response.send(
+    `
+  The phone book has the info for ${count}
+  ${new Date().toString()}
+  `
+  );
+});
+
+app.delete("/api/persons/:id", (request, response) => {
+  const id = Number(request.params.id);
+  persons = persons.filter((person) => person.id !== id);
+
+  response.status(204).end();
+});
 
 const PORT = 3001;
 app.listen(PORT);
